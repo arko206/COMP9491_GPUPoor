@@ -40,8 +40,8 @@ def create_lag_features(ts, hist_timesteps, forecast_steps, skip):
         X.append(ts[:, :, i:i+hist_timesteps])
         y.append(ts[:, :, i+hist_timesteps:i+hist_timesteps+forecast_steps])
     return (
-        np.array(X).squeeze(),
-        np.array(y).squeeze(),
+        np.array(X),
+        np.array(y),
     )
 
 
