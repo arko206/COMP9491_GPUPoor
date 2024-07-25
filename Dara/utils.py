@@ -32,6 +32,18 @@ def split_time_series(X, l):
     chunks = X.shape[-1] // l
     return np.concatenate([X[:, :, l*i:l*(i+1)] for i in range(chunks)])
 
+def create_lag_features(ts, hist_timesteps, forecast_steps, skip):
+    ''' ts: [B, C, T]
+    '''
+    X, y = [], []
+    for i in range(0, ts.shape[-1] - hist_timesteps - forecast_steps + 1, skip):
+        X.append(ts[:, :, i:i+hist_timesteps])
+        y.append(ts[:, :, i+hist_timesteps:i+hist_timesteps+forecast_steps])
+    return (
+        np.array(X).squeeze(),
+        np.array(y).squeeze(),
+    )
+
 
 class TSTrainDataset(Dataset):
     def __init__(self, data):
