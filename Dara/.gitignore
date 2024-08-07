@@ -153,6 +153,5 @@ dmypy.json
 cython_debug/
 
 # experiment dir
-data
 test
 tmp
